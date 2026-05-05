@@ -1,3 +1,13 @@
+variable "dns_zone_id" {
+  type    = string
+  default = "Z0818741Y2022YQ09YCS"
+}
+
+variable "dns_name" {
+  type    = string
+  default = "tzpcsystems.xyz"
+}
+
 variable "instances" {
   type    = list(any)
   default = ["mongodb", "mysql", "catalogue", "redis", "rabbitmq", "user", "cart", "shipping", "payment", "frontend"]
