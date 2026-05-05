@@ -1,13 +1,9 @@
 resource "aws_instance" "testserver01" {
-  ami                    = "ami-0220d79f3f480ecf5"
-  instance_type          = "t3.micro"
+  ami                    = var.ami_id
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.testserver_sg.id]
 
-  tags = {
-    Name      = "Test Server"
-    Terraform = true
-    Test      = "worked"
-  }
+  tags = var.instance_tags
 }
 
 resource "aws_security_group" "testserver_sg" {
@@ -18,25 +14,22 @@ resource "aws_security_group" "testserver_sg" {
   # ... other configuration ...
 
   egress {
-    from_port        = 0
-    to_port          = 0
+    from_port        = var.sg_egress_from_port
+    to_port          = var.sg_egress_to_port
     protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = var.sg_egress_cidr
     ipv6_cidr_blocks = ["::/0"]
   }
 
   ingress {
-    from_port        = 0
-    to_port          = 0
+    from_port        = var.sg_ingress_from_port
+    to_port          = var.sg_ingress_to_port
     protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = var.sg_ingress_cidr
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = {
-    Name      = "testserver01"
-    terraform = true
-  }
+  tags = var.sg_tags
 
   lifecycle {
     create_before_destroy = true
