@@ -1,11 +1,13 @@
 resource "aws_instance" "testserver01" {
+  count                  = 10
   ami                    = var.ami_id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.testserver_sg.id]
 
-  tags = var.instance_tags
+  tags = {
+    Name = var.instances[count.index]
+  }
 }
-
 
 resource "aws_security_group" "testserver_sg" {
 
