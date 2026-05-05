@@ -1,14 +1,13 @@
+variable "environment" {
+  type    = string
+  default = "dev"
+}
+
 variable "ami_id" {
   type        = string
   default     = "ami-0220d79f3f480ecf5"
   description = "RHEL 9 Image"
 }
-
-variable "sg_name" {
-  type    = string
-  default = "From Variables.tf file"
-}
-
 
 variable "instance_type" {
   type    = string

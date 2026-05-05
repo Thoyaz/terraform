@@ -1,6 +1,7 @@
 resource "aws_instance" "testserver01" {
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
+  ami = var.ami_id
+  # if dev t3.micro, If not t3.small
+  instance_type          = var.environment == "dev" ? "t3.micro" : "t3.small"
   vpc_security_group_ids = [aws_security_group.testserver_sg.id]
 
   tags = var.instance_tags
@@ -8,7 +9,7 @@ resource "aws_instance" "testserver01" {
 
 resource "aws_security_group" "testserver_sg" {
 
-  name        = var.sg_name
+  name        = "testserver_sg"
   description = "Allow all traffic"
 
   # ... other configuration ...
